@@ -11,6 +11,7 @@ function HelloWorld() {
 function changeImage() {
     var image = document.getElementById("Image_1");
     var bt_2 = document.getElementById("button_switch");
+    
     if(bt_2.innerText == "Allumer") {
         image.src = "img/étape9.jpg";
         bt_2.innerText = "Eteindre";
