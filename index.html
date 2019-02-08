@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Apache2 Ubuntu Default Page: It works</title>
+        <style type="text/css" media="screen">
+      * {
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+      }
+    
+      body, html {
+        padding: 3px 3px 3px 3px;
+    
+        background-color: #D8DBE2;
+    
+        font-family: Verdana, sans-serif;
+        font-size: 11pt;
+        text-align: center;
+      }
+    
+      img {
+        width: 700px;
+      }
+    
+        </style>
+        
+      </head>
+
+<body>
+    <p> Salut à tous les amis</p>
+    <!--<input type="text" id="input_name" />
+    <button id="button_hello">Hello</button>
+
+    <img id="Image_1" src="img/étape1.png" />
+    <button id="button_switch">Allumer</button>-->
+
+    <form id="contact" novalidate="">
+        <label for="nom" class="legende"> Username : </label> <br> <p id="erreur_nom">Le Nom doit comporter entre 5 et 24 caractères.</p>
+        <input type="text" name="nom" id="nom" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"><span class="red">*</span><br><br>
+
+        <label for="age" class="legende"> Age : </label> <br> <p id="erreur_age">L'age doit etre compris entre 5 et 100</p>
+        <input type="text" name="age" id="age" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"><span class="red">*</span><br><br>
+
+        <label for="password" class="legende"> Mot de Passe : </label><br> <p id="erreur_mdp">Le mot de passe doit une minuscule, une majuscule, un chiffre et faire 6 de long au minimum.</p>
+        <input type="password" name="password" id="password" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"> <span class="red">*</span> <br><br>
+
+        <label for="password_verif" class="legende"> Vérification Mot de Passe : </label><br> <p id="erreur_mdp_verif">Les mots de passe ne correspondent pas</p>
+        <input type="password" name="password_verif" id="password_verif" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"> <span class="red">*</span> <br><br>
+
+        <label for="mail" class="legende">Mail : </label><br> <p id="erreur_mail">Ce n'est pas un mail</p>
+        <input type="email" name="mail" id="mail" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"> <span class="red">*</span> <br><br>
+
+        <label class="legende">Genre : </label><br> <p id="erreur_gender">Veuillez selectionner un gender INCLUSIF svp</p>
+        <input type="radio" name="gender" value="male" class="radio">Homme
+        <input type="radio" name="gender" value="female" class="radio"> Femme
+        <input type="radio" name="gender" value="other" class="radio"> Autre <br><br>
+
+        <input type="checkbox" name="fake_news" value="true" id="checkbox" checked="">Je veux profiter d'une newsletter qui ne sert à rien !<br><br>
+
+        <label for="country" class="legend"> Pays : </label>
+        <select name="country">
+          <option value="england">Angleterre</option>
+          <option value="wales">Pays de Bas</option>
+          <option value="italia">Italie</option>
+          <option value="scotland">Ecosse</option>
+          <option value="ireland">Irlande</option>
+          <option value="france">France</option>
+        </select><br><br>
+
+
+        <input type="button" value="Submit" id="submit" class="bouton"> - <input type="reset" id="reset" class="bouton">
+        <br>
+
+        
+        <span class="red">*</span> : <span class="italique"> Ces champs sont requis. </span>
+    </form>
+
+  
+  <script src="js/test2.js"></script>
+
+
+</body>
+</html>
