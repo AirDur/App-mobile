@@ -1,8 +1,6 @@
 var global_clic = false;
 
 function afficheErreur(champ, erreur){
-
-  console.log("eijzejezaaaaaaaafz");
     if(erreur) {
       champ.style.backgroundColor = "#fba";
       champ.style.boxShadow = " 0 0 5px 1px red";
@@ -15,8 +13,6 @@ function afficheErreur(champ, erreur){
  }
  
  function verifNom() {
-
-  console.log("eijz49846ejfz");
    var champ = document.getElementById("nom");
    var erreur = document.getElementById("erreur_nom");
    if(!(champ.value.length < 4 || champ.value.length > 25))
@@ -34,8 +30,6 @@ function afficheErreur(champ, erreur){
  }
  
  function verifAge() {
-
-  console.log("e253ijzejfz");
    var champ =  document.getElementById("age");
    var erreur = document.getElementById("erreur_age");
    var regex = /^(100|[1-9][0-9]|[5-9]?)$/;
@@ -54,8 +48,6 @@ function afficheErreur(champ, erreur){
  }
 
  function verifPassword() {
-
-  console.log("eijze ncnjfz");
   var champ =  document.getElementById("password");
   var erreur = document.getElementById("erreur_mdp");
   var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,255}$/;
@@ -74,8 +66,6 @@ function afficheErreur(champ, erreur){
 }
 
 function verifPassword2() {
-
-  console.log("eijzefzezejfz");
   var champ = document.getElementById("password");
   var champ2 = document.getElementById("password_verif");
   var erreur = document.getElementById("erreur_mdp_verif");
@@ -94,8 +84,6 @@ function verifPassword2() {
 }
  
  function verifMail() {
-
-  console.log("eijddfszejfz");
    var champ =  document.getElementById("mail");
    var erreur = document.getElementById("erreur_mail");
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
@@ -111,8 +99,6 @@ function verifPassword2() {
  }
  
  function verifUrl() {
-
-  console.log("eijdzejfz");
    var champ =  document.getElementById("website");
    var regex = /^(?:(http[s]?|ftp[s]):\/\/)?([^:\/\s]+)(:[0-9]+)?((?:\/\w+)*\/)([\w\-\.]+[^#?\s]+)([^#\s]*)?(#[\w\-]+)?$/;
    if(!regex.test(champ.value) && champ.value!="") {
@@ -125,8 +111,6 @@ function verifPassword2() {
  }
 
  function verifGender() {
-
-  console.log("eijzejfddzdz");
    var boutons = document.getElementsByClassName("radio");
    var erreur = document.getElementById("erreur_gender");
    var retour = false;
@@ -145,8 +129,26 @@ function verifPassword2() {
  }
  
  function reset_form() {
-   global_clic = false;
    document.getElementById("contact").reset;
+   document.getElementById("mail").style.backgroundColor = "";
+   document.getElementById("mail").style.boxShadow = "";
+   document.getElementById("erreur_mail").innerHTML = "";
+
+   document.getElementById("nom").style.backgroundColor = "";
+   document.getElementById("nom").style.boxShadow = "n";
+   document.getElementById("erreur_nom").innerHTML = "";
+   
+   document.getElementById("age").style.backgroundColor = "";
+   document.getElementById("age").style.boxShadow = "";
+   document.getElementById("erreur_age").innerHTML = "";
+
+   document.getElementById("password").style.backgroundColor = "";
+   document.getElementById("password").style.boxShadow = "";
+   document.getElementById("erreur_mdp").innerHTML = "";
+
+   document.getElementById("password_verif").style.backgroundColor = "";
+   document.getElementById("password_verif").style.boxShadow = "";
+   document.getElementById("erreur_mdp_verif").innerHTML = "";
  }
  
  function f_submit() {
