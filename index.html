@@ -29,27 +29,22 @@
 
 <body>
     <p> Salut à tous les amis</p>
-    <!--<input type="text" id="input_name" />
-    <button id="button_hello">Hello</button>
-
-    <img id="Image_1" src="img/étape1.png" />
-    <button id="button_switch">Allumer</button>-->
 
     <form id="contact" novalidate="">
         <label for="nom" class="legende"> Username : </label> <br> <p id="erreur_nom">Le Nom doit comporter entre 5 et 24 caractères.</p>
-        <input type="text" name="nom" id="nom" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"><span class="red">*</span><br><br>
+        <input type="text" name="nom" id="nom" required=""><span class="red">*</span><br><br>
 
         <label for="age" class="legende"> Age : </label> <br> <p id="erreur_age">L'age doit etre compris entre 5 et 100</p>
-        <input type="text" name="age" id="age" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"><span class="red">*</span><br><br>
+        <input type="text" name="age" id="age" required=""><span class="red">*</span><br><br>
 
         <label for="password" class="legende"> Mot de Passe : </label><br> <p id="erreur_mdp">Le mot de passe doit une minuscule, une majuscule, un chiffre et faire 6 de long au minimum.</p>
-        <input type="password" name="password" id="password" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"> <span class="red">*</span> <br><br>
+        <input type="password" name="password" id="password" required=""> <span class="red">*</span> <br><br>
 
         <label for="password_verif" class="legende"> Vérification Mot de Passe : </label><br> <p id="erreur_mdp_verif">Les mots de passe ne correspondent pas</p>
-        <input type="password" name="password_verif" id="password_verif" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"> <span class="red">*</span> <br><br>
+        <input type="password" name="password_verif" id="password_verif" required=""> <span class="red">*</span> <br><br>
 
         <label for="mail" class="legende">Mail : </label><br> <p id="erreur_mail">Ce n'est pas un mail</p>
-        <input type="email" name="mail" id="mail" required="" style="background-color: rgb(255, 187, 170); box-shadow: red 0px 0px 5px 1px;"> <span class="red">*</span> <br><br>
+        <input type="email" name="mail" id="mail" required=""> <span class="red">*</span> <br><br>
 
         <label class="legende">Genre : </label><br> <p id="erreur_gender">Veuillez selectionner un gender INCLUSIF svp</p>
         <input type="radio" name="gender" value="male" class="radio">Homme

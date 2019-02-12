@@ -1,21 +1,22 @@
 var global_clic = false;
 
 function afficheErreur(champ, erreur){
-  console.log("efzefezfz");
+
+  console.log("eijzejezaaaaaaaafz");
     if(erreur) {
       champ.style.backgroundColor = "#fba";
       champ.style.boxShadow = " 0 0 5px 1px red";
-      //document.getElementById("erreur").display = "block";
     }
     else {
       champ.style.backgroundColor = "";
       champ.style.boxShadow = "0 0 5px 1px green";
-      //  document.getElementById("erreur").display = "none";
     }
  
  }
  
  function verifNom() {
+
+  console.log("eijz49846ejfz");
    var champ = document.getElementById("nom");
    var erreur = document.getElementById("erreur_nom");
    if(!(champ.value.length < 4 || champ.value.length > 25))
@@ -33,6 +34,8 @@ function afficheErreur(champ, erreur){
  }
  
  function verifAge() {
+
+  console.log("e253ijzejfz");
    var champ =  document.getElementById("age");
    var erreur = document.getElementById("erreur_age");
    var regex = /^(100|[1-9][0-9]|[5-9]?)$/;
@@ -51,10 +54,12 @@ function afficheErreur(champ, erreur){
  }
 
  function verifPassword() {
+
+  console.log("eijze ncnjfz");
   var champ =  document.getElementById("password");
   var erreur = document.getElementById("erreur_mdp");
   var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,255}$/;
-  if((!regex.test(champ.value) && champ.value!=""))
+  if(!regex.test(champ.value))
     {
         afficheErreur(champ, true);
         erreur.innerHTML = "Le mot de passe doit une minuscule, une majuscule, un chiffre et faire 6 de long au minimum.";
@@ -69,6 +74,8 @@ function afficheErreur(champ, erreur){
 }
 
 function verifPassword2() {
+
+  console.log("eijzefzezejfz");
   var champ = document.getElementById("password");
   var champ2 = document.getElementById("password_verif");
   var erreur = document.getElementById("erreur_mdp_verif");
@@ -87,10 +94,12 @@ function verifPassword2() {
 }
  
  function verifMail() {
+
+  console.log("eijddfszejfz");
    var champ =  document.getElementById("mail");
    var erreur = document.getElementById("erreur_mail");
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
-   if(!regex.test(champ.value)  && champ.value!="") {
+   if(!regex.test(champ.value)) {
      afficheErreur(champ, true);
      erreur.innerHTML = "Ce n'est pas un mail";
      return false;
@@ -102,19 +111,22 @@ function verifPassword2() {
  }
  
  function verifUrl() {
+
+  console.log("eijdzejfz");
    var champ =  document.getElementById("website");
    var regex = /^(?:(http[s]?|ftp[s]):\/\/)?([^:\/\s]+)(:[0-9]+)?((?:\/\w+)*\/)([\w\-\.]+[^#?\s]+)([^#\s]*)?(#[\w\-]+)?$/;
    if(!regex.test(champ.value) && champ.value!="") {
     afficheErreur(champ, false);
     return true;
    } else {
-    console.log("????");
     afficheErreur(champ, true);
     return false;  
    }
  }
 
  function verifGender() {
+
+  console.log("eijzejfddzdz");
    var boutons = document.getElementsByClassName("radio");
    var erreur = document.getElementById("erreur_gender");
    var retour = false;
@@ -138,6 +150,7 @@ function verifPassword2() {
  }
  
  function f_submit() {
+   console.log("eijzejfz");
    global_clic = true;
    var test = verifAge();
    var test2 = verifMail();
