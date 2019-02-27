@@ -32,11 +32,9 @@ todoApp.controller('ctrlTodo', ['$scope', function($scope) {
 
     //Supprime les tâches "finies"
     $scope.delCheckedTask = function() {
-        for(var i = 0; i <= $scope.checked.length; i++) {
+        for(var i = $scope.checked.length; i > 0 ; i--) {
             if($scope.checked[i]) {
                 $scope.delTask(i);
-                i = $scope.checked.length+1;
-                $scope.delCheckedTask();
             }
         }
     }
