@@ -26,15 +26,21 @@ todoApp.controller('ctrlTodo', ['$scope', function($scope) {
 
     //Supprime une tâche en particulier  
     $scope.delTask = function(index) {
+        console.log( $scope.tabOfTasks);
+        console.log($scope.checked);
         $scope.tabOfTasks.splice(index,1);
         $scope.checked.splice(index,1);
+        console.log( $scope.tabOfTasks);
+        console.log($scope.checked);
     }
 
     //Supprime les tâches "finies"
     $scope.delCheckedTask = function() {
         for(var i = $scope.checked.length; i > 0 ; i--) {
-            if($scope.checked[i]) {
-                $scope.delTask(i);
+            var tempon = i-1;
+            console.log(tempon);
+            if($scope.checked[tempon]) {
+                $scope.delTask(tempon);
             }
         }
     }
