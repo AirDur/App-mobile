@@ -51,6 +51,20 @@ app.post('/api/laliste', function(req, res) {
     });
 });
 
+app.delete('/api/laliste/:liste_id', function(req, res) {
+    Liste.deleteOne({
+        _id : req.params.liste_id
+    }, function(err, liste) {
+        if (err)
+            res.send(err);
+        Liste.find(function(err, laliste) {
+            if (err)
+                res.send(err)
+            res.json(laliste);
+        }); 
+    });
+});
+
 //Utilisation du port 8080 : 
 app.listen(8080);
 console.log("on utilise le port 8080");
