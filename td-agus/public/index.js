@@ -7,6 +7,9 @@ function mainController($scope, $http) {
     $http.get('/api/laliste')
         .success(function(data) {
             $scope.laliste = data;
+            for(var i = 0; i < $scope.laliste.length; i++) {
+                $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
+            }
             console.log(data);
         })
         .error(function(data) {
@@ -19,6 +22,9 @@ function mainController($scope, $http) {
             .success(function(data) {
                 $scope.formData = {};
                 $scope.laliste = data;
+                for(var i = 0; i < $scope.laliste.length; i++) {
+                    $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
+                }
                 console.log(data);
             })
             .error(function(data) {
@@ -31,6 +37,9 @@ function mainController($scope, $http) {
         $http.delete('/api/laliste/' + id)
             .success(function(data) {
                 $scope.laliste = data;
+                for(var i = 0; i < $scope.laliste.length; i++) {
+                    $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
+                }
                 console.log(data);
             })
             .error(function(data) {

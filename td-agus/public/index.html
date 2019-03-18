@@ -5,26 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Liste de choses à faire</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <div ng-controller="mainController">
-            <h1>Todo List : </h1>
-            <p> Nombre des choses à faire : {{ laliste.length }}</p>
-            <div id="todo-list">
-                <div ng-repeat="x in laliste">
-                    <h5><button ng-click="deleteTodo(x._id)"> x </button> {{ x.text }}</h5>
+        <div ng-controller="mainController" class="container">
+            <div class="col">
 
+            </div>
+            <div class="col">
+                <h1>Todo List : </h1>
+                <p> Nombre des choses à faire : {{ laliste.length }}</p>
+                <ul class="list-group" >
+                    
+                </ul>
+                <table class="table" id="todo-list">
+                        <thead>
+                          <tr>
+                            <th scope="col">Delete</th>
+                            <th scope="col">Task</th>
+                            <th scope="col">Creation Date</th>
+                            <th scope="col">Done</th>
+                          </tr>
+                        </thead> 
+                        <tr ng-repeat="x in laliste">
+                            <th scope="col"><button class="btn btn-danger" ng-click="deleteTodo(x._id)"> x </button></th>
+                            <th scope="col">{{ x.text }}</th> 
+                            <th scope="col">{{ x.date }}</th>  
+                            <th scope="col">{{ x.done }}</th>
+                        </tr>
+                      </table>
+
+                <div id="todo-form">
+                    <form class="input-group flex-nowrap">
+                        <input type="text" class="form-control" placeholder="écrire quelque chose" ng-model="formData.text"> 
+                        <button type="submit" class="btn btn-primary" ng-click="createTodo()">Ajouter</button>
+                    </form>
                 </div>
             </div>
+            <div class="col">
 
-            <div id="todo-form">
-                <form>
-                    <input type="text" placeholder="écrire quelque chose" ng-model="formData.text">
-                    <br>
-                    <button type="submit" ng-click="createTodo()">Ajouter</button>
-                </form>
             </div>
-
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
         <script src="index.js"></script>
     </body>
