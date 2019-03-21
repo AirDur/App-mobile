@@ -2,16 +2,17 @@ var Listeafaire = angular.module('ListeaFaire', []);
 
 function mainController($scope, $http) {
     $scope.formData = {};
-    $scope.xmodify = {};
+    $scope.formModify = {};
+    $scope.laliste = {};
+
+    $scope.styleDone = {
+        "background-color" : "lightgray"
+    }
 
     //Obtenir la liste (appel à la fonction get dans server.js)
     $http.get('/api/laliste')
         .success(function(data) {
             $scope.laliste = data;
-            //Change Date format 
-            for(var i = 0; i < $scope.laliste.length; i++) {
-                $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
-            }
         })
         .error(function(data) {
             console.log('Error index.js : ' + data);
@@ -23,9 +24,6 @@ function mainController($scope, $http) {
             .success(function(data) {
                 $scope.formData = {};
                 $scope.laliste = data;
-                for(var i = 0; i < $scope.laliste.length; i++) {
-                    $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
-                }
             })
             .error(function(data) {
                 console.log('Error index.js     : ' + data);
@@ -38,18 +36,15 @@ function mainController($scope, $http) {
             document.getElementById('xtextmodify-'+index).style.display = "block";
             document.getElementById('xtext-'+index).style.display = "none";
             document.getElementById('btn-modify-'+index).innerHTML='✔';
-            $scope.xmodify.text = task.text;
+            $scope.formModify.text = task.text;
         }
         else {
             document.getElementById('xtextmodify-'+index).style.display = "none";
             document.getElementById('xtext-'+index).style.display = "block";
             document.getElementById('btn-modify-'+index).innerHTML = 'Modifier';
-            $http.post('/api/laliste/modify/' + task._id + "/" + $scope.xmodify.text)
+            $http.post('/api/laliste/modify/' + task._id + "/" + $scope.formModify.text)
             .success(function(data) {
                 $scope.laliste = data;
-                for(var i = 0; i < $scope.laliste.length; i++) {
-                    $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
-                }
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -62,9 +57,6 @@ function mainController($scope, $http) {
         $http.delete('/api/laliste/delete/' + id)
             .success(function(data) {
                 $scope.laliste = data;
-                for(var i = 0; i < $scope.laliste.length; i++) {
-                    $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
-                }
             })
             .error(function(data) {
                 console.log('Error : ' + data);
@@ -77,13 +69,15 @@ function mainController($scope, $http) {
             .success(function(data) {
                 $scope.formData = {};
                 $scope.laliste = data;
-                for(var i = 0; i < $scope.laliste.length; i++) {
-                    $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
-                }
             })
             .error(function(data) {
                 console.log('Error : ' + data);
             }); 
+    }
+
+    $scope.taskDone = function(done) {
+        if(done)
+            return $scope.styleDone;
     }
 
     //Supprime les tâches "finies" : 
@@ -93,9 +87,6 @@ function mainController($scope, $http) {
                 $http.delete('/api/laliste/delete/' + $scope.laliste[i]._id)
                     .success(function(data) {
                         $scope.laliste = data;
-                        for(var i = 0; i < $scope.laliste.length; i++) {
-                            $scope.laliste[i].date = new Date($scope.laliste[i].date).toLocaleString();
-                        }
                     })
                     .error(function(data) {
                         console.log('Error : ' + data);
