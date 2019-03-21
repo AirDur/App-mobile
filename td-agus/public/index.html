@@ -10,28 +10,33 @@
     <body>
         <div ng-controller="mainController" class="container">
             <div class="col">
-
-            </div>
-            <div class="col">
                 <h1>Todo List : </h1>
                 <p> Nombre des choses à faire : {{ laliste.length }}</p>
-                <ul class="list-group" >
-                    
-                </ul>
                 <table class="table" id="todo-list">
                         <thead>
                           <tr>
+                            <th scope="col"> # </th>
                             <th scope="col">Delete</th>
                             <th scope="col">Check</th>
+                            <th scope="col">Modifier</th>
                             <th scope="col">Task</th>
                             <th scope="col">Creation Date</th>
                             <th scope="col">Done</th>
                           </tr>
                         </thead> 
                         <tr ng-repeat="x in laliste">
+                            <th scope="col">{{ $index }}</th>
                             <th scope="col"><button class="btn btn-danger" ng-click="deleteTodo(x._id)"> x </button></th>
-                            <th scope="col"><button class="btn btn-success" ng-click="checkTodo(x._id, !x.done)">Fait</th>
-                            <th scope="col">{{ x.text }}</th> 
+                            <th scope="col">
+                                <button class="btn btn-success" id="btn-done-{{ $index }}" ng-click="checkTodo(x._id, !x.done, $index)">Fait</button>
+                            </th>
+                            <th scope="col">
+                                    <button class="btn btn-action" id="btn-modify-{{ $index }}" ng-click="modifyTodo(x, $index)">Modifier</button>
+                            </th>
+                            <th scope="col" id="xtext-{{ $index }}">{{ x.text }}</th> 
+                            <th scope="col" id="xtextmodify-{{$index}}" style="display: none;" class="form-group">
+                                    <input type="text" class="form-control" ng-model="xmodify.text" value="{{ x.text }}">
+                            </th>
                             <th scope="col">{{ x.date }}</th>  
                             <th scope="col">{{ x.done }}</th>
                         </tr>
@@ -46,9 +51,6 @@
                 <form class="input-group flex-nowrap">
                     <button type="submit" class="btn btn-danger" ng-click="delCheckedTask()" value="Vider">Supprimer les tâches effectués</button>
                 </form>
-            </div>
-            <div class="col">
-
             </div>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
         <script src="index.js"></script>

@@ -12,12 +12,4 @@ var Tasks = mongoose.model('Listes', {
     done: Boolean
 });
 
-//Format des données :
-var User = mongoose.model('Users', {
-    name: String,
-    password: String,
-    email: String,
-    verified: Boolean
-});
-
-module.exports = Tasks, User;
+module.exports = Tasks;
