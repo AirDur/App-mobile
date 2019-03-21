@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Todo</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div ng-controller="ctrlTodo">
+            <h1>TodoList</h1>
+            <p>{{ addTaskError }}</p>
+            <form ng-submit="addTask()">
+                    Ajouter une tâche : <input type="text" ng-model="taskName"/><input type="submit" value="Ajouter"/>
+            </form>
+            <form ng-submit="delCheckedTask()">
+                    Supprimer les tâches : <input type="submit" value="Vider"/>
+            </form>
+            
+            <br>
+            <div ng-repeat="aTask in tabOfTasks track by $index" ng-style="taskDone(aTask)">
+                <!-- http://jsfiddle.net/mrajcok/eTTZj/ -->
+                <input type="checkbox" ng-model="checked[$index]"> {{ aTask }} <input type="button" ng-click="delTask($index)" value="Supprimer"/>
+            </div>
+
+        <script src="assets/js/angular.min.js"></script>
+        <script src="js/todoAjoutTaskApp.js"></script>
+    </body>
+</html>
