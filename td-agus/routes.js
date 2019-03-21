@@ -1,6 +1,6 @@
 var router = require('express').Router();
 
-var Liste = require('./model2.js');
+var Liste = require('./model.js');
 
 //Récupère un fichier / et l'envoi à index.html
 router.get('/', function(req, res) {
@@ -36,6 +36,23 @@ router.delete('/api/laliste/:liste_id', function(req, res) {
     Liste.deleteOne({
         _id : req.params.liste_id
     }, function(err, liste) {
+        if (err)
+            res.send(err);
+        Liste.find(function(err, laliste) {
+            if (err)
+                res.send(err)
+            res.json(laliste);
+        }); 
+    });
+});
+
+router.post('/api/laliste/:liste_id/:done', function(req, res) {
+    console.log(req.params);
+    Liste.updateOne({
+        _id : req.params.liste_id
+    }, 
+    { done : req.params.done },
+    function(err, liste) {
         if (err)
             res.send(err);
         Liste.find(function(err, laliste) {

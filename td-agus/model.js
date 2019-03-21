@@ -1,14 +1,23 @@
 var mongoose = require('mongoose');
 
 //Connexion à la base de donnée : 
-mongoose.connect('mongodb://localhost/ListeaFaire', {
+mongoose.connect('mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.net/ListeaFaire?retryWrites=true', {
     useNewUrlParser: true
 });
 
-//Format des données :
-var Liste = mongoose.model('Liste', {
+//Format des données de :
+var Tasks = mongoose.model('Listes', {
     text: String,
-    date: Date
+    date: Date,
+    done: Boolean
 });
 
-module.exports = Liste;
+//Format des données :
+var User = mongoose.model('Users', {
+    name: String,
+    password: String,
+    email: String,
+    verified: Boolean
+});
+
+module.exports = Tasks, User;

@@ -22,6 +22,7 @@
                         <thead>
                           <tr>
                             <th scope="col">Delete</th>
+                            <th scope="col">Check</th>
                             <th scope="col">Task</th>
                             <th scope="col">Creation Date</th>
                             <th scope="col">Done</th>
@@ -29,6 +30,7 @@
                         </thead> 
                         <tr ng-repeat="x in laliste">
                             <th scope="col"><button class="btn btn-danger" ng-click="deleteTodo(x._id)"> x </button></th>
+                            <th scope="col"><button class="btn btn-success" ng-click="checkTodo(x._id, !x.done)">Fait</th>
                             <th scope="col">{{ x.text }}</th> 
                             <th scope="col">{{ x.date }}</th>  
                             <th scope="col">{{ x.done }}</th>
@@ -41,6 +43,9 @@
                         <button type="submit" class="btn btn-primary" ng-click="createTodo()">Ajouter</button>
                     </form>
                 </div>
+                <form class="input-group flex-nowrap">
+                    <button type="submit" class="btn btn-danger" ng-click="delCheckedTask()" value="Vider">Supprimer les tâches effectués</button>
+                </form>
             </div>
             <div class="col">
 

@@ -9,8 +9,8 @@ var app = express();
 
 app.use(express.static(__dirname + '/public')); //Dossier des données statics
 app.use(morgan('dev')); //color output for development usage
-app.use(bodyParser.urlencoded({'extended':'true'})); 
-app.use(bodyParser.json());
+app.use(bodyParser.json());     //to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({'extended':'true'}));  //to support URL-encoded bodies
 app.use(bodyParser.json({ type : 'application/vnd.api+json' })); //type de l'application
 
 app.use(router);
