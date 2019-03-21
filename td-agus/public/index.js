@@ -33,15 +33,16 @@ function mainController($scope, $http) {
     //Modification d'une tâche : 
     $scope.modifyTodo = function(task, index) {
         if (document.getElementById('btn-modify-'+index).innerHTML=='Modifier') {
+            for(var i = 0; i < $scope.laliste.length; i++) {
+                affichageNormal_Modify(i);
+            }
             document.getElementById('xtextmodify-'+index).style.display = "block";
             document.getElementById('xtext-'+index).style.display = "none";
             document.getElementById('btn-modify-'+index).innerHTML='✔';
             $scope.formModify.text = task.text;
         }
         else {
-            document.getElementById('xtextmodify-'+index).style.display = "none";
-            document.getElementById('xtext-'+index).style.display = "block";
-            document.getElementById('btn-modify-'+index).innerHTML = 'Modifier';
+            affichageNormal_Modify(index);
             $http.post('/api/laliste/modify/' + task._id + "/" + $scope.formModify.text)
             .success(function(data) {
                 $scope.laliste = data;
@@ -93,5 +94,11 @@ function mainController($scope, $http) {
                     }); 
             }
         }
+    }
+
+    function affichageNormal_Modify(index) {
+        document.getElementById('xtextmodify-'+index).style.display = "none";
+        document.getElementById('xtext-'+index).style.display = "block";
+        document.getElementById('btn-modify-'+index).innerHTML = 'Modifier';
     }
 }
