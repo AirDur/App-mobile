@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<html ng-app="Connexion">
+    <head>
+        <title>Connexion</title>
+    </head>
+
+    <body ng-controller="mainController" style="margin:50;padding:5">
+        {% raw %}
+        <h1>Connexion à votre e-todolist</h1>
+        <form class="form-inline">
+            <table class="table table-bordered" id="todo-list">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom d'utilisateur</th>
+                    <th scope="col">Mot de passe</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tr>
+            <th scope="col">
+                <input type="text" class="form-control" placeholder="Nom d'utilisateur" ng-model="coData.username">
+            </th>
+            <th scope="col">
+                <input type="text" class="form-control" placeholder="Mot de passe" ng-model="coData.password">
+            </th>
+            <th scope="col">
+                <button type="button" class="btn btn-success mb-2" type="submit" ng-click="connectUser()">Se connecter</button>
+            </th>
+            </tr>
+            </table>
+        </form>
+        <div class="row">
+            <div class="col-6"><a href="/registration">Pas encore inscrit ? Cliquez-ici</a></div>
+            <div class="col-6"><p><font color="{{response.color}}">{{response.text}}</font></p></div>
+        </div>
+        {% endraw %}
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+        <script src="/public/users/index.js"></script>
+    </body>
+</html>
+{% endblock %}
