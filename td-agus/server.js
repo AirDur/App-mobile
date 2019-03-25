@@ -2,19 +2,30 @@
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var router = require('./routes.js');
 
-/* Initialisation : */
+// Initialisation : 
 var app = express();
 
-app.use(express.static(__dirname + '/public')); //Dossier des données statics
-app.use(morgan('dev')); //color output for development usage
+//color output for development usage : 
+app.use(morgan('dev')); 
+
+//init parser : 
 app.use(bodyParser.json());     //to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({'extended':'true'}));  //to support URL-encoded bodies
 app.use(bodyParser.json({ type : 'application/vnd.api+json' })); //type de l'application
 
-app.use(router);
+var dataLayerListe = require(__dirname + '/model/dataLayer.Liste.js');
 
-//Utilisation du port 8080 : 
-app.listen(8080);
-console.log("on utilise le port 8080");
+// Start the application after the connexion to Database established : 
+dataLayerListe.init(function() {
+    console.log('init');
+    app.listen(process.env.PORT || 3000, function(){
+        console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    });
+});
+
+// Dossiers : 
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
+var routerListe = require(__dirname + '/route/route.Liste');
+app.use(routerListe);
