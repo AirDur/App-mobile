@@ -6,7 +6,7 @@ var client = new MongoClient(uri, {
 });
 var db;
 
-var dataLayer = {
+var dataLayerUsers = {
 
     init : function(cb) {
         client.connect(function(err) {

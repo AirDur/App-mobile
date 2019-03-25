@@ -1,19 +1,19 @@
-var router = require('express').Router();
+var routerListe = require('express').Router();
 
 //Récupère un fichier / et l'envoi à index.html
-router.get('/', function(req, res) {
+routerListe.get('/', function(req, res) {
     res.sendFile('/views/Listes.html');
 });
 
 //Récupère toute lt la liste
-router.get('/Liste', function(req, res) {
+routerListe.get('/Liste', function(req, res) {
     dataLayerListe.getTaskSet(function(dtSet) {
         res.send(dtSet);
     });
 });
 
 //Modifier la tâche :
-router.post('/Liste/modify/:liste_id/:text', function(req, res) {
+routerListe.post('/Liste/modify/:liste_id/:text', function(req, res) {
     if(req.params) {
         var id = {
             _id : req.params.liste_id
@@ -31,7 +31,7 @@ router.post('/Liste/modify/:liste_id/:text', function(req, res) {
 });
 
 //Supprime la tâche à faire
-router.delete('/Liste/delete/:liste_id', function(req, res) {
+routerListe.delete('/Liste/delete/:liste_id', function(req, res) {
     if(req.params) {
         var id = {
             _id : req.params.liste_id
@@ -48,7 +48,7 @@ router.delete('/Liste/delete/:liste_id', function(req, res) {
 });
 
 //Créer une tâche à faire
-router.post('/Liste', function(req, res) {
+routerListe.post('/Liste', function(req, res) {
     if(req.body) {
         var dataToInsert = {
             text : req.body.text,
@@ -67,7 +67,7 @@ router.post('/Liste', function(req, res) {
 });
 
 // Met une tâche "fait"
-router.post('/Liste/:liste_id/:done', function(req, res) {
+routerListe.post('/Liste/:liste_id/:done', function(req, res) {
     if(req.params) {
         var id = {
             _id : req.params.liste_id

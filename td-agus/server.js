@@ -20,7 +20,7 @@ app.use(bodyParser.json());     //to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({'extended':'true'}));  //to support URL-encoded bodies
 app.use(bodyParser.json({ type : 'application/vnd.api+json' })); //type de l'application
 
-var dataLayerListe = require('/model/dataLayer.Liste.js');
+var dataLayerListe = require('./model/dataLayer.Liste.js');
 
 // Start the application after the connexion to Database established : 
 dataLayerListe.init(function() {
@@ -31,4 +31,4 @@ dataLayerListe.init(function() {
 });
 
 app.use('/todolists', require('./routes/route.Liste.js'));
-app.use('/', require('./routes/users.js'));
+app.use('/', require('./routes/route.Users.js'));
