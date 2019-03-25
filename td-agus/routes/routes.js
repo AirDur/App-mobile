@@ -6,9 +6,9 @@ mongoose.connect('mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.ne
     useNewUrlParser: true
 });
 
-var Liste = require('./model-tasks.js');
+var Liste = require('../models/model-tasks.js');
 
-var User = require('./model-user.js');
+var User = require('../models/model-user.js');
 
 //Récupère un fichier / et l'envoi à index.html
 router.get('/', function(req, res) {
