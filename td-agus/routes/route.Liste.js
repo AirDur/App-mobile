@@ -7,7 +7,7 @@ routerListe.get('/', function(req, res) {
 
 //Récupère toute lt la liste
 routerListe.get('/Liste', function(req, res) {
-    dataLayerListe.getTaskSet(function(dtSet) {
+    dataLayerListe.getTask(function(dtSet) {
         res.send(dtSet);
     });
 });
