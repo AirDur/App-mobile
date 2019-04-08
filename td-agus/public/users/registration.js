@@ -3,10 +3,10 @@ var Inscription = angular.module('Inscription', []);
 function mainController($scope, $http) {
     $scope.insData = {};
     $scope.response = {};
-
     // fonction créer un nouveau utilisateur
     $scope.createUser = function() {
         if(validateForm($scope.insData) ) {
+            console.log($scope.insData);
             $http.post('/User/add', $scope.insData)
             .success(function(data) {
                 $scope.insData = {};
@@ -19,9 +19,7 @@ function mainController($scope, $http) {
         } else {
             $scope.response.text = "Erreur : vous n'avez pas renseigné les informations nécessaires.";
         }   
-    };
-
-    
+    }   
 }
 
 //Ajout de document listener : 

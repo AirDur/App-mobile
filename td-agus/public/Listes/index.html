@@ -6,11 +6,24 @@
         <title>Application Liste</title>
     </head>
     <body>
+        <button type="button" class="btn btn-primary mb-2" type="submit" onclick="window.history.back();">
+            Retour sur mon espace
+        </button>
         <div ng-controller="mainController" class="container">
             <div class="col">
                 {% raw %}
                 <table class="table table-bordered" id="todo-list">
-                    <caption>Nombre des choses à faire : {{ laliste.length }}.</caption>
+                    <div class="row">
+                        <div class="col-sm"><h3>Nom de la liste:</h3></div>
+                        <div class="col-md-auto"><div id="listname" style="display: block;" ng-dblclick="editList()"><h3>{{laliste.name}}</h3></div><div id="listname_modify" style="display: none;"><input type="text" class="form-control" name="name" ng-model="listData.name"></div></div>
+                        <div class="col-sm"><button type="submit" id="modify-list" class="btn btn-success mb-2" ng-click="editList()">Modifier la liste</button></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm"><h3>Description :</h3></div>
+                        <div class="col-md-auto"><div id="listdesc" style="display: block;" ng-dblclick="editList()"><h4>{{laliste.description}}</h4></div><div id="listdesc_modify" style="display: none;"><input type="text" class="form-control" name="description" ng-model="listData.description"></div></div>
+                        <!-- <div class="col-sm-2"><button type="submit" id="delete-list" class="btn btn-danger" ng-click="deleteList()"> x </button></div> -->
+                    </div>
+                    <caption>Nombre des choses à faire : {{ laliste.tasks.length }}.</caption>
                     <thead class="thead-dark">
                         <tr>
                         <th scope="col"> # </th>

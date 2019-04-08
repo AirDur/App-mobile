@@ -1,6 +1,8 @@
 var ListeaFaire = angular.module('ListeaFaire', []);
 
-function mainController($scope, $http) {
+function mainController($scope, $http, $location) {
+
+    var url = $location.search().list;
     $scope.formData = {};
     $scope.formModify = {};
     $scope.laliste = {};
@@ -8,9 +10,9 @@ function mainController($scope, $http) {
     $scope.styleDone = {
         "background-color" : "lightgray"
     }
-
+    console.log("URL ::::" + url);
     //Obtenir la liste (appel à la fonction get dans server.js)
-    $http.get('/Liste/api/laliste')
+    $http.get('/Liste/api/'+url)
         .success(function(data) {
             $scope.laliste = data;
         })
@@ -20,7 +22,7 @@ function mainController($scope, $http) {
 
     //rajout d'une tâche (appel à la fonction post dans server.js)
     $scope.createTodo = function() {
-        $http.post('/Liste/api/laliste', $scope.formData)
+        $http.post('/Tache/api', $scope.formData)
             .success(function(data) {
                 $scope.formData = {};
                 $scope.laliste = data;
@@ -43,7 +45,7 @@ function mainController($scope, $http) {
         }
         else {
             affichageNormal_Modify(index);
-            $http.post('/Liste/api/laliste/modify/' + task._id + "/" + $scope.formModify.text)
+            $http.post('/Tache/api/modify/' + task._id + "/" + $scope.formModify.text)
             .success(function(data) {
                 $scope.laliste = data;
             })
@@ -55,7 +57,7 @@ function mainController($scope, $http) {
 
     //suppression d'une tâche (appel à la fonction delete dans server.js)
     $scope.deleteTodo = function(id) {
-        $http.delete('/Liste/api/laliste/delete/' + id)
+        $http.delete('/Liste/api/delete/' + id)
             .success(function(data) {
                 $scope.laliste = data;
             })
@@ -66,7 +68,7 @@ function mainController($scope, $http) {
 
     // Permet de déclarer une tâche "effectuée" : 
     $scope.checkTodo = function(id, done, index) {
-        $http.post('/Liste/api/laliste/' + id + "/" + done)
+        $http.post('/Liste/api/' + id + "/" + done)
             .success(function(data) {
                 $scope.formData = {};
                 $scope.laliste = data;
@@ -85,7 +87,7 @@ function mainController($scope, $http) {
     $scope.delCheckedTask = function() {
         for(i in $scope.laliste) {
             if($scope.laliste[i].done) {
-                $http.delete('/Liste/api/laliste/delete/' + $scope.laliste[i]._id)
+                $http.delete('/Liste/api/delete/' + $scope.laliste[i]._id)
                     .success(function(data) {
                         $scope.laliste = data;
                     })

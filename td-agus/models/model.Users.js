@@ -14,7 +14,13 @@ var UserSchema = new Schema({
     verified : { type: Boolean, required: true, default: false },
     email: { type: String, required: false },
     loginAttempts: { type: Number, required: true, default: 0 },
-    lockUntil: { type: Number }
+    lockUntil: { type: Number },
+    listes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Liste'
+        }
+      ]
 });
 
 UserSchema.virtual('isLocked').get(function() {

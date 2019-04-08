@@ -11,15 +11,18 @@ function mainController($scope, $http) {
             $http.post('/User/connect', $scope.coData)
                 .success(function(data) {
                     $scope.coData = {}; // On reset les champs
-                    if (data == "Connexion réussie") {
+                    if (data[1] == 0)  {
+                        setCookie('username', $scope.coData.username, 0.01);
                         $scope.response.color = 'green';
-                        $scope.response.text = data += ', redirection sur votre espace ...';
+                        $scope.response.text = "Bienvenue ! Redirection sur votre espace en cours...";
                         setTimeout(function(){
-                            window.location.replace("/Liste");
+                            
+                            console.log('/'+data[0].replace(/^"(.*)"$/, '$1'));
+                            window.location.replace('/'+data[0].replace(/^"(.*)"$/, '$1'));
                         }, 2000);
                     } else {
                         $scope.response.color = 'red';
-                        $scope.response.text = data;   
+                        $scope.response.text = "erreur : " + data[0];   
                     };
                     
                 })
@@ -31,4 +34,11 @@ function mainController($scope, $http) {
             $scope.response.text = "Erreur : vous n'avez pas renseigné les informations nécessaires";
         }  
     };
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
