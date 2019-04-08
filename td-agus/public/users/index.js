@@ -16,9 +16,7 @@ function mainController($scope, $http) {
                         $scope.response.color = 'green';
                         $scope.response.text = "Bienvenue ! Redirection sur votre espace en cours...";
                         setTimeout(function(){
-                            
-                            console.log('/'+data[0].replace(/^"(.*)"$/, '$1'));
-                            window.location.replace('/'+data[0].replace(/^"(.*)"$/, '$1'));
+                            window.location.replace('espace');
                         }, 2000);
                     } else {
                         $scope.response.color = 'red';

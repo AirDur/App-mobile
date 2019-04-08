@@ -6,7 +6,6 @@ function mainController($scope, $http) {
     // fonction créer un nouveau utilisateur
     $scope.createUser = function() {
         if(validateForm($scope.insData) ) {
-            console.log($scope.insData);
             $http.post('/User/add', $scope.insData)
             .success(function(data) {
                 $scope.insData = {};

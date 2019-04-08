@@ -27,6 +27,7 @@ var dataLayer = {
 
     //Récupère les listes de tâche : 
     getList: function(param,cb) {
+        console.log(Liste.findById(param.id));
         Liste.findById(param.id).populate('tasks').then(theliste => {cb(theliste)});
     },
 
@@ -71,6 +72,13 @@ var dataLayer = {
             if (err)
                 cb(err);
             cb();
+        });
+    },
+
+    // Vérifie si un identifiant d'utilisateur existe déjà :
+    existUser: function(data,cb) {
+        User.findById(data.id,function(err, user) {
+            cb(err,user);
         });
     },
 

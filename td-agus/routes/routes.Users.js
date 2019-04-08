@@ -14,7 +14,16 @@ router.get('/confirmation', function(req, res) {
     res.render('users/confirmation.html');
 });
 
-router.get('/:id', function(req, res) {
+// Affichage d'une liste : 
+router.post('/Liste', function(req, res) {
+    param = req.body;
+    dataLayer.getList(param,function(laliste){
+        res.render('Liste/index.html', { liste : laliste });
+    });
+});
+
+// Espace personnel : 
+router.get('/User/espace', function(req, res) {
     param = req.params;
     dataLayer.getMySpace(param,function(result){
         res.render('users/perso.html', 
@@ -22,6 +31,17 @@ router.get('/:id', function(req, res) {
             user: result,
             id : param.id
         });
+    });
+});
+
+//Vérifie si un utilisateur existe déjà (lors de l'inscription)
+router.post('User/isExist', function(req, res) {
+    dataLayer.existUser(req.body, function(err, result) {
+        if(err==null) {
+            res.send(result);
+        } else {
+            res.send(false);
+        }
     });
 });
 
@@ -60,8 +80,7 @@ router.get('/User/list', function(req, res) {
 
 // Permet de créer une collaboration.
 router.post('/Collaboration/create', function(req, res) {
-    data = req.body;
-    dataLayer.createCollab(data,function(result){
+    dataLayer.createCollab(req.body,function(result){
         res.send(result);
     });
 });

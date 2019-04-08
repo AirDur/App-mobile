@@ -8,8 +8,8 @@ mongoose.connect('mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.ne
     useNewUrlParser: true
 });
 
-router.get('/id=:id', function(req, res) {
-    res.render('Listes/index.html');
+router.get('/#?id=:id', function(req, res) {
+    res.render('Liste/index.html');
 });
 
 //Récupère toute lt la liste
@@ -20,13 +20,6 @@ router.get('/api', function(req, res) {
         res.json(laliste);
     })
 });
-
-// router.get('/api/:id', function(req, res) {
-//     param = req.params;
-//     dataLayer.getList(param,function(result){
-//       res.send(result);
-//     });
-// });
 
 // Créer une tâche : 
 router.post('/api/:id', function(req, res) {

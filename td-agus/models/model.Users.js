@@ -23,8 +23,8 @@ var UserSchema = new Schema({
       ]
 });
 
-UserSchema.virtual('isLocked').get(function() {
-    // check for a future lockUntil timestamp
+// check for a future lockUntil timestamp
+UserSchema.virtual('isLocked').get(function() { 
     return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
