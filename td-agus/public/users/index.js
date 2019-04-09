@@ -12,11 +12,11 @@ function mainController($scope, $http) {
                 .success(function(data) {
                     $scope.coData = {}; // On reset les champs
                     if (data[1] == 0)  {
-                        setCookie('username', $scope.coData.username, 0.01);
+                        setCookie('username', data[0], 0.01);
                         $scope.response.color = 'green';
                         $scope.response.text = "Bienvenue ! Redirection sur votre espace en cours...";
                         setTimeout(function(){
-                            window.location.replace('espace');
+                            window.location.replace('/User/espace/'+data[0].replace(/^"(.*)"$/, '$1'));
                         }, 2000);
                     } else {
                         $scope.response.color = 'red';

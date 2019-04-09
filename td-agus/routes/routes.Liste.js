@@ -13,10 +13,11 @@ mongoose.connect('mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.ne
 //     res.render('Listes/index.html');
 // });
 
-router.get('/#?id=:id', function(req, res) {
-    res.render('Listes/index.html');
-});
+// router.get('/#?id=:id', function(req, res) {
+//     res.render('Listes/index.html');
+// });
 
+//Afficher une liste : 
 router.get('/api/:id', function(req, res) {
     param = req.params;
     dataLayer.getList(param,function(result){
@@ -29,7 +30,9 @@ router.post('/api/create/:id', function(req, res) {
     data = req.body;
     param = req.params;
     dataLayer.createList(param,data,function(result){
-        res.send(result)
+        
+        res.send(result);
+        
     });
 });
 

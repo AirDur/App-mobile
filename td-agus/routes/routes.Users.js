@@ -23,19 +23,20 @@ router.post('/Liste', function(req, res) {
 });
 
 // Espace personnel : 
-router.get('/User/espace', function(req, res) {
+router.get('/User/espace/:id', function(req, res) {
     param = req.params;
     dataLayer.getMySpace(param,function(result){
         res.render('users/perso.html', 
         {
-            user: result,
+            liste_de_truc: result.listes,
             id : param.id
         });
     });
 });
 
 //Vérifie si un utilisateur existe déjà (lors de l'inscription)
-router.post('User/isExist', function(req, res) {
+// Renvoie false si le datalayer renvoit une quelconque erreur
+router.post('/User/isExist', function(req, res) {
     dataLayer.existUser(req.body, function(err, result) {
         if(err==null) {
             res.send(result);

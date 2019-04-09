@@ -13,7 +13,7 @@ function mainController($scope, $http) {
             })
             .error(function(data) {
                 $scope.response.text = "Erreur lors de l'inscription. Vérifiez vos données.";
-                console.log('Error: ' + data);
+                console.log('Error registration : ' + data);
             });
         } else {
             $scope.response.text = "Erreur : vous n'avez pas renseigné les informations nécessaires.";

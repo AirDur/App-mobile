@@ -1,6 +1,8 @@
+//var MongoClient = require('mongodb').MongoClient;
 var client = require('mongoose');
 var urlmongo = 'mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.net/ListeaFaire?retryWrites=true';
 var db;
+//var client = new MongoClient(urlmongo, { useNewUrlParser: true});
 
 var Liste = require('./models/model.Liste');
 var User = require('./models/model.Users');
@@ -18,28 +20,35 @@ var dataLayer = {
         });
         //callback vide
         cb();
+        /*
+        client.connect(function(err) {
+            if(err) throw err;
+            db = client.db("Listeafaire");
+            cb();
+        });*/
     },
 
     //Récupère l'espace utilisateur : 
     getMySpace: function(param,cb) {
-        User.findById(param.id).populate('listes').then(leuser => {cb(leuser)});
+        User.findOne({ _id: client.Types.ObjectId(param.id) }).populate('listes').exec((err, res) => { cb(res)})
     },
 
     //Récupère les listes de tâche : 
     getList: function(param,cb) {
-        console.log(Liste.findById(param.id));
-        Liste.findById(param.id).populate('tasks').then(theliste => {cb(theliste)});
+        //console.log(Liste.findById(param.id));
+        Liste.findById(param.id).populate('taches').then(theliste => {cb(theliste)});
     },
 
     //Créer une liste de tâche pour un (puis plusieurs) utilisateur(s) : 
     createList: function(param,data,cb) {
         Liste.create({
             name : data.name,
-            description : data.description
+            description : data.description,
+            creator : data.creator_id
         }, function(err, list) {
-        if (err)
-            cb(err);
-        User.findByIdAndUpdate(param.id, {$push: {listes: list._id}}, {'new':true}, cb);
+            if (err)
+                cb(err);
+            User.findByIdAndUpdate(param.id, {$push: {listes: list._id}}, {'new':true}, cb);
         });
     },
 

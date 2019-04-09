@@ -7,11 +7,19 @@
         <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
         <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            h1 {
+                text-align: center;
+            }
+            .col-sm {
+                flex-grow: 0;
+            }
+        </style>
     </head>
     <body>
         <div ng-controller="mainController" class="container">
             <div class="col">
-                <h1>Application To Do List : </h1>
+                <h1>Application To Do List</h1>
                 {% block content %} {% endblock %}
             </div>
         </div>
