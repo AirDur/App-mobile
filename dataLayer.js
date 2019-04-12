@@ -36,7 +36,7 @@ var dataLayer = {
     //Récupère les listes de tâche : 
     getList: function(param,cb) {
         //console.log(Liste.findById(param.id));
-        Liste.findById(param.id).populate('taches').then(theliste => {cb(theliste)});
+        Liste.findById(param.id).populate('tasks').then(Liste_tache => {cb(Liste_tache)});
     },
 
     //Créer une liste de tâche pour un (puis plusieurs) utilisateur(s) : 
@@ -75,7 +75,6 @@ var dataLayer = {
             username: data.username,
             password: data.password
         });
-      
         // save user to database
         newUser.save({}, function(err) {
             if (err)
@@ -130,7 +129,7 @@ var dataLayer = {
             creator : data.creator,
             date: Date.now(),
             done : false
-        }, function(err, task) {
+        }, function(err, tache) {
             if (err)
                 cb(err);
             Liste.findByIdAndUpdate(param.id, { $push: {tasks: tache._id}} , { 'new': true}, cb);
@@ -196,6 +195,7 @@ var dataLayer = {
             });
         }
     }
+    
 }
 
 module.exports = dataLayer;

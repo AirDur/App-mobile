@@ -8,16 +8,6 @@ mongoose.connect('mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.ne
     useNewUrlParser: true
 });
 
-//Récupère un fichier / et l'envoi à index.html
-// router.get('/', function(req, res) {
-//     res.render('Listes/index.html');
-// });
-
-// router.get('/#?id=:id', function(req, res) {
-//     res.render('Listes/index.html');
-// });
-
-//Afficher une liste : 
 router.get('/api/:id', function(req, res) {
     param = req.params;
     dataLayer.getList(param,function(result){
@@ -40,7 +30,7 @@ router.post('/api/create/:id', function(req, res) {
 router.post('/api/modify/:id', function(req, res) {
     data = req.body;
     param = req.params;
-    dataLayer.modifyList(param,data,function(){
+    dataLayer.updateList(param,data,function(){
         dataLayer.getList(param,function(result){
             res.send(result);
         });

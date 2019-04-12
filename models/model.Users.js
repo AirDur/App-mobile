@@ -11,8 +11,8 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
-    verified : { type: Boolean, required: true, default: false },
-    email: { type: String, required: false },
+    verified : { type: Boolean, required: true, default: false }, //inutilisé
+    email: { type: String, required: false }, //inutilisé
     loginAttempts: { type: Number, required: true, default: 0 },
     lockUntil: { type: Number },
     listes: [
@@ -22,6 +22,8 @@ var UserSchema = new Schema({
         }
       ]
 });
+
+// A partir d'ici, code pompé sur un site pour le hachage et la sécurité des données :
 
 // check for a future lockUntil timestamp
 UserSchema.virtual('isLocked').get(function() { 
