@@ -89,11 +89,9 @@ function mainController($scope, $http, $location) {
         document.getElementById('listdesc').style.display = "block";
         document.getElementById('listdesc_modify').style.display = "none";
         document.getElementById('modify-list').innerHTML='Modifier la liste';
-        console.log(url);
         $http.post('/Liste/api/modify/'+url, $scope.listData)
         .success(function(data) {
             $scope.listData.tasks = data.tasks;
-            console.log(data);
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -184,7 +182,7 @@ function mainController($scope, $http, $location) {
 
   //Supprime une tache
   $scope.deleteTask = function(id) {
-    $http.delete('/Tache/api/' + url + '/' + id)
+    $http.delete('/Tache/api/delete/' + url + '/' + id)
     .success(function(data) {
         $scope.listData = data;
     })
@@ -195,19 +193,26 @@ function mainController($scope, $http, $location) {
 
   //Supprime toutes les tâches faites
   $scope.deleteDoneTask = function() {
-    console.log("call");
-    for(i in $scope.listData.tasks) {
-      if($scope.listData.tasks[i].done) {
-        $http.delete('/Tache/api/delete/' + $scope.listData.tasks[i]._id)
-          .success(function(data) {
-            console.log(data);
-            $scope.listData.tasks = data.tasks;
-          })
-          .error(function(data) {
-            console.log('Error : ' + data);
-          }); 
-      }
-    }
+    // console.log("call");
+    // for(i in $scope.listData.tasks) {
+    //   if($scope.listData.tasks[i].done) {
+    //     $http.delete('/Tache/api/delete/' + $scope.listData.tasks[i]._id)
+    //       .success(function(data) {
+    //         console.log(data);
+    //         $scope.listData.tasks = data.tasks;
+    //       })
+    //       .error(function(data) {
+    //         console.log('Error : ' + data);
+    //       }); 
+    //   }
+    // }
+    $http.delete('/Tache/api/delete/' + url)
+    .success(function(data) {
+        $scope.listData = data;
+    })
+    .error(function(data) {
+        console.log('Error : ' + data);
+    }); 
   }
 
   //supprime le cookie et force à se reconnecter

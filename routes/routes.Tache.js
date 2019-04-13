@@ -66,7 +66,7 @@ router.delete('/api/delete/:id/:tache_id', function(req, res) {
 
 // Supprime les tâches finies : 
 router.delete('/api/delete/:id', function(req, res) {
-    dataLayer.deleteTask_Done(req.params, req.body, function(){
+    dataLayer.deleteTask_Done(function(){
         dataLayer.getList(param,function(result){
             res.send(result);
         });
