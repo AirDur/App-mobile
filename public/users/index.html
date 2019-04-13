@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<html ng-app="Connexion">
+    <body>
+        {% raw %}
+        <h2>Connexion</h2>
+        <form class="form-inline">
+            <table class="table table-bordered" id="todo-list">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nom d'utilisateur</th>
+                        <th scope="col">Mot de passe</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tr>
+                    <th scope="col">
+                        <input type="text" class="form-control" placeholder="Nom d'utilisateur" ng-model="coData.username">
+                    </th>
+                    <th scope="col">
+                        <input type="password" class="form-control" placeholder="Mot de passe" ng-model="coData.password">
+                    </th>
+                    <th scope="col">
+                        <button type="button" class="btn btn-success mb-2" type="submit" ng-click="connectUser()">Se connecter</button>
+                    </th>
+                </tr>
+            </table>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <a href="/registration">Pas encore inscrit ? Cliquez-ici</a>
+            </div>
+            <div class="col-6">
+                <p color="{{ response.color }}">{{response.text}}</p>
+            </div>
+        </div>
+        {% endraw %}
+        <script src="/public/users/index.js"></script>
+    </body>
+</html>
+{% endblock %}

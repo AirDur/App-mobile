@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<html ng-app="Inscription">
+
+    <body>
+        {% raw %}
+        <h2>Inscription à votre e-todolist</h2>
+        <form class="form-inline" id="formInscription">
+            <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">Nom d'utilisateur</th>
+                <th scope="col">Mot de passe</th>
+                <th scope="col">Confirmation</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tr>
+            <th scope="col">
+                <input type="text" class="form-control" id="username" placeholder="Nom d'utilisateur" ng-model="insData.username">
+                <p id="usernameHelp"></p>
+            </th>
+            <th scope="col">
+                <input type="password" class="form-control" id="password" placeholder="Mot de passe" ng-model="insData.password">
+                <p id="passwordHelp"></p>
+            </th>
+            <th scope="col">
+                <input type="password" class="form-control" id="passwordconf" placeholder="Confirmation" ng-model="insData.passwordconf">
+                <p id="passwordconfHelp"></p>
+            </th>
+            <th scope="col">
+                <button type="button" class="btn btn-success mb-2" type="submit" ng-click="createUser()">S'incrire</button>
+            </th>
+            </tr>
+            </table>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <p id="erreur" color="red">{{response.text}}</p>
+            </div>
+        </div>
+        {% endraw %}
+        <script src="/public/users/registration.js"></script>
+    </body>
+</html>
+{% endblock %}

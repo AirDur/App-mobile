@@ -1,0 +1,226 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<html ng-app="ListeGestion">
+
+<body ng-controller="mainController">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="/public/users/perso.js"></script>
+
+  <div id="pop-up">
+
+  </div>
+  <div id="pas_connecte" style="display: none;" >
+    <p color='red'>Erreur ! Vous n'êtes pas connecté !</p>
+    <button type="button" class="btn btn-danger" type="submit" onclick="window.location.replace('/');">
+      Connectez-vous pour pouvoir acceder au contenu.
+    </button>
+  </div>
+  <div id="gestion" style="display: none;" >
+    <div class="row">
+      <div class="col">
+        <h3>Bienvenue sur ton espace !</h3>
+      </div>
+      <div class="col-sm">
+        <button type="submit" id="deconnexion" class="btn btn-warning" ng-click="deconnexion()">Déconnexion</button>
+      </div>
+    </div>
+    <span id='id' style="display: none;">{{ id }}</span>
+    <div class="row">
+      <div class="col">
+        <h3>
+          Vos listes de tâches :
+        </h3>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formListeModal">
+          Ajouter une liste
+        </button> 
+      </div>
+      <div class="col-sm">
+          <button type="submit" id="create-list" class="btn btn-primary" onclick="window.location.replace('/User/espace/{{id}}');">↻</button>
+      </div>
+    </div>
+    <table class="table table-bordered" id="todo-list">
+      <thead class="thead-dark">
+        <tr>
+        <th scope="col">Nom de la liste</th>
+        <th scope="col">Description</th>
+        <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      {% for l in liste_de_truc %}
+      <tr>
+        <th scope="col">
+          {{l.name}}
+          <!--<span style="display: none;">{{l._id}}</span>-->
+        </th>
+        <th scope="col">
+          {{l.description}}
+        </th>
+        <th scope="col-sm">
+          <button type="button" class="btn btn-success" type="submit" ng-click="openList('{{l._id}}')">Consulter</button>
+          <button type="button" id="add-collab-{{loop.index}}" class="btn btn-info" data-toggle="modal" data-target="#formCollabModal" ng-click="stockIdcreateCollab('{{l._id}}')">Ajout Collab</button>
+          <button type="submit" id="delete-list" class="btn btn-danger" ng-click="deleteList('{{l._id}}')">Supprimer</button>
+        </th>
+      </tr>
+      {% endfor %}
+    </table>
+    <!-- formulaire d'ajout de collaborateur pour une liste : -->
+    <div class="modal fade" id="formCollabModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="formModal">Ajout d'un collaborateur</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="name">Pseudo du collaborateur</label>
+                <input type="text" class="form-control" name="name" ng-model="collabData.name">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" ng-click="createCollab()" data-dismiss="modal">Créer la collaboration</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- formulaire d'ajout de liste : -->
+    <div class="modal fade" id="formListeModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="formModal">Ajout d'une liste</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="name">Nom de la liste</label>
+                <input type="text" class="form-control" name="name" ng-model="newListData.name">
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" name="description" ng-model="newListData.description">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" ng-click="createList()" data-dismiss="modal">Ajouter la liste</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Affichage de la liste de tache : -->
+  {% raw %}
+  <div id="liste_de_tache" style="display: none;">
+    <div class="row">
+      <div class="col">
+        <h3 id="listname">Liste {{listData.name}}</h3>
+        <div id="listname_modify" style="display: none;">
+          <input type="text" class="form-control" name="name" ng-model="listData.name">
+        </div>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formTaskModal">
+          Ajouter une tâche
+        </button> 
+        <button type="submit" id="modify-list" class="btn btn-success" ng-click="editList()">
+          Modifier la liste
+        </button>
+        <button type="submit" id="close-list" class="btn btn-info" ng-click="deleteDoneTask()">
+          Nettoyer la liste
+        </button>
+        <button type="submit" id="close-list" class="btn btn-danger" ng-click="closeList()">
+          Fermer la liste
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3>Description :</h3>
+      </div>
+      <div class="col">
+        <div id="listdesc">
+          <p>{{listData.description}}</p>
+        </div>
+        <div id="listdesc_modify" style="display: none;">
+          <input type="text" class="form-control" name="description" ng-model="listData.description">
+        </div>
+      </div>
+    </div>
+    <!-- contenu de la liste de taches : -->
+    <table class="table table-bordered" id="todo-list">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nom</th>
+          <th scope="col">Date</th>
+          <th scope="col">Créateur</th>
+          <th scope="col">Edition</th>
+        </tr>
+      </thead>
+      <tr class='bg-light' div ng-repeat="task in listData.tasks">
+      <th scope="col">
+        <input type="checkbox" id="done-{{$index}}" ng-checked="task.done" ng-click="isChecked($index, task)">
+      </th>
+      <th scope="col">
+        <div id="tasktext-{{$index}}">
+          {{ task.text }}
+        </div>
+        <div id="edittasktext-{{$index}}" style="display: none;" class="form-group mx-sm-3">
+          <input type="text" class="form-control" name="text" ng-model="editData.text">
+        </div>
+      </th>
+      <th scope="col">
+        <div>
+          {{ task.date | date:'dd/MM/yyyy à HH:mm' }}
+        </div>
+      </th>
+      <th scope="col">
+        <div>
+          {{ task.creator }}
+        </div>
+      </th>
+      <th scope="col">
+        <button type="submit" ng-show="isCreator(task.creator)" id="modify-{{$index}}" class="btn btn-success" ng-click="editTask($index, task)" ng-disabled="task.done">Modifier</button>
+        <button type="submit" ng-show="isCreator(task.creator)" id="delete-{{$index}}" class="btn btn-danger" ng-click="deleteTask(task._id)"> x </button>
+      </th>
+    </table>
+    <!-- formulaire d'ajout de liste : -->
+    <div class="modal fade" id="formTaskModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="formModal">Ajout d'une tâche</h5>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="name">Nom de la tâche</label>
+                  <input type="text" class="form-control" name="name" ng-model="formData.text">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="button" class="btn btn-primary" ng-click="createTask()" data-dismiss="modal">Ajouter la tâche</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  {% endraw %}
+
+ 
+  
+</body>
+</html>
+{% endblock %}
