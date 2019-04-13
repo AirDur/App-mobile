@@ -15,7 +15,7 @@
   </div>
   <div id="pas_connecte" style="display: none;" >
     <p color='red'>Erreur ! Vous n'êtes pas connecté !</p>
-    <button type="button" class="btn btn-danger mb-2" type="submit" onclick="window.location.replace('/');">
+    <button type="button" class="btn btn-danger" type="submit" onclick="window.location.replace('/');">
       Connectez-vous pour pouvoir acceder au contenu.
     </button>
   </div>
@@ -63,8 +63,8 @@
         </th>
         <th scope="col-sm">
           <button type="button" class="btn btn-success" type="submit" ng-click="openList('{{l._id}}')">Consulter</button>
-          <button type="button" id="add-collab-{{loop.index}}" class="btn btn-info" data-toggle="modal" data-target="#formCollabModal" ng-click="showAddCollab('{{l._id}}')">Ajout Collab</button>
-          <button type="submit" ng-show="isCreator()" id="delete-list" class="btn btn-danger" ng-click="deleteList('{{l._id}}')">Supprimer</button>
+          <button type="button" id="add-collab-{{loop.index}}" class="btn btn-info" data-toggle="modal" data-target="#formCollabModal" ng-click="stockIdcreateCollab('{{l._id}}')">Ajout Collab</button>
+          <button type="submit" id="delete-list" class="btn btn-danger" ng-click="deleteList('{{l._id}}')">Supprimer</button>
         </th>
       </tr>
       {% endfor %}
@@ -102,11 +102,11 @@
             <form>
               <div class="form-group">
                 <label for="name">Nom de la liste</label>
-                <input type="text" class="form-control" name="name" ng-model="listData.name">
+                <input type="text" class="form-control" name="name" ng-model="newListData.name">
               </div>
               <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" name="description" ng-model="listData.description">
+                <input type="text" class="form-control" name="description" ng-model="newListData.description">
               </div>
             </form>
           </div>
@@ -132,8 +132,11 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formTaskModal">
           Ajouter une tâche
         </button> 
-        <button ng-show="isCreator()" type="submit" id="modify-list" class="btn btn-success" ng-click="editList()">
+        <button type="submit" id="modify-list" class="btn btn-success" ng-click="editList()">
           Modifier la liste
+        </button>
+        <button type="submit" id="close-list" class="btn btn-info" ng-click="deleteDoneTask()">
+          Nettoyer la liste
         </button>
         <button type="submit" id="close-list" class="btn btn-danger" ng-click="closeList()">
           Fermer la liste
@@ -145,7 +148,7 @@
         <h3>Description :</h3>
       </div>
       <div class="col">
-        <div id="listdesc" style="display: block;" ng-show="isCreator()" ng-dblclick="editList()">
+        <div id="listdesc">
           <p>{{listData.description}}</p>
         </div>
         <div id="listdesc_modify" style="display: none;">
@@ -164,40 +167,31 @@
           <th scope="col">Edition</th>
         </tr>
       </thead>
-      <tr class='bg-light' div ng-repeat="x in listData.tasks">
+      <tr class='bg-light' div ng-repeat="task in listData.tasks">
       <th scope="col">
-        <input type="checkbox" id="done-{{$index}}" ng-checked="x.done" ng-click="isChecked($index, x)">
+        <input type="checkbox" id="done-{{$index}}" ng-checked="task.done" ng-click="isChecked($index, task)">
       </th>
       <th scope="col">
-        <div id="xtext-{{$index}}" style="display: block;" ng-show="isCreator()" ng-dblclick="editTask($index, x)">
-          {{ x.text }}
+        <div id="tasktext-{{$index}}">
+          {{ task.text }}
         </div>
-        <div id="xtext-{{$index}}" style="display: block;" ng-show="isNormal()">
-          {{ x.text }}
-        </div>
-        <div id="xtextmodify-{{$index}}" style="display: none;" class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" name="text" ng-model="modifyData.text">
+        <div id="edittasktext-{{$index}}" style="display: none;" class="form-group mx-sm-3">
+          <input type="text" class="form-control" name="text" ng-model="editData.text">
         </div>
       </th>
       <th scope="col">
         <div>
-          {{ aTask.date | date:'dd/MM/yyyy à HH:mm' }}
+          {{ task.date | date:'dd/MM/yyyy à HH:mm' }}
         </div>
       </th>
       <th scope="col">
-        <div id="xcreator-{{$index}}" style="display: block;" ng-show="isCreator()" ng-dblclick="editTask($index, x)">
-          {{ aTask.date | date:'dd/MM/yyyy à HH:mm' }}
-        </div>
-        <div id="xcreator-{{$index}}" style="display: block;" ng-show="isNormal()">
-          {{ x.creator }}
-        </div>
-        <div id="xcreatormodify-{{$index}}" style="display: none;" class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" name="creator" ng-model="modifyData.creator">
+        <div>
+          {{ task.creator }}
         </div>
       </th>
       <th scope="col">
-        <button type="submit" id="modify-{{$index}}" ng-show="isCreator()" class="btn btn-success mb-2" ng-click="editTask($index, x)" ng-disabled="x.done">Modifier</button>
-        <button type="submit" ng-show="isCreator()" id="delete-{{$index}}" class="btn btn-danger mb-2" ng-click="deleteTask(x._id)"> x </button>
+        <button type="submit" ng-show="isCreator(task.creator)" id="modify-{{$index}}" class="btn btn-success" ng-click="editTask($index, task)" ng-disabled="task.done">Modifier</button>
+        <button type="submit" ng-show="isCreator(task.creator)" id="delete-{{$index}}" class="btn btn-danger" ng-click="deleteTask(task._id)"> x </button>
       </th>
     </table>
     <!-- formulaire d'ajout de liste : -->

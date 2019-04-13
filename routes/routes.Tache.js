@@ -33,11 +33,13 @@ router.post('/api/:id', function(req, res) {
 });
 
 //Modifier la tâche :
-router.post('/api/modify/:id', function(req, res) {
+router.post('/api/modify/:id/:tache_id', function(req, res) {
     data = req.body;
     param = req.params;
     dataLayer.updateTask(param,data, function(result){
-        res.send(result)
+        dataLayer.getList(param,function(result){
+            res.send(result)
+        });
     });
 });
 
@@ -53,23 +55,18 @@ router.post('/api/modify_done/:id/:tache_id', function(req, res) {
 });
 
 //Supprime la tâche à faire
-router.delete('/api/:tache_id', function(req, res) {
-    Liste.deleteOne({
-        _id : req.params.tache_id
-    }, function(err, liste) {
-        if (err)
-            res.send(err);
-        Liste.find(function(err, laliste) {
-            if (err)
-                res.send(err)
-            res.json(laliste);
-        }); 
+router.delete('/api/delete/:id/:tache_id', function(req, res) {
+    param = req.params;
+    dataLayer.delete(param,function(){
+        dataLayer.getList(param,function(result){
+            res.send(result);
+        });
     });
 });
 
 // Supprime les tâches finies : 
 router.delete('/api/delete/:id', function(req, res) {
-    dataLayer.deleteTask_Done(function(){
+    dataLayer.deleteTask_Done(req.params, req.body, function(){
         dataLayer.getList(param,function(result){
             res.send(result);
         });

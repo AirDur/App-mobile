@@ -10,6 +10,12 @@ var Liste = mongoose.model('Liste', {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Tache'
       }
+    ],
+    collaboraters: [
+      {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+      }
     ]
 });
 

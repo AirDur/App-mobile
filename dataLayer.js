@@ -30,12 +30,14 @@ var dataLayer = {
 
     //Récupère l'espace utilisateur : 
     getMySpace: function(param,cb) {
-        User.findOne({ _id: client.Types.ObjectId(param.id) }).populate('listes').exec((err, res) => { cb(res)})
+        //User.findOne({ _id: client.Types.ObjectId(param.id) }).populate('listes').exec((err, res) => { cb(res)})
+        User.findById(param.id).populate({path : 'listes', populate : [{path:'creator'}, {path:'collaboraters'}]}).then(leuser => {
+            cb(leuser)
+        });
     },
 
     //Récupère les listes de tâche : 
     getList: function(param,cb) {
-        //console.log(Liste.findById(param.id));
         Liste.findById(param.id).populate('tasks').then(Liste_tache => {cb(Liste_tache)});
     },
 
@@ -141,8 +143,7 @@ var dataLayer = {
         Tache.updateOne({
             _id : param.tache_id
         },{
-            text : data.text,
-            creator : data.creator
+            text : data.text
         }, function(err) {
             if (err)
                 cb(err);
@@ -177,12 +178,12 @@ var dataLayer = {
     //Supprime une tâche : 
     delete : function(param,cb) {
         //console.log(param);
-        Task.deleteOne({
+        Tache.deleteOne({
             _id : param.tache_id
         }, function(err) {
             if (err)
                 cb(err);
-            Todolist.findByIdAndUpdate(param.id, {$pull: {tasks: param.tache_id}}, {'new':false}, cb);
+            Liste.findByIdAndUpdate(param.id, {$pull: {tasks: param.tache_id}}, {'new':false}, cb);
         });
     },
 
@@ -191,7 +192,8 @@ var dataLayer = {
         if(typeof data.name != "undefined") {
             User.findOne({ username: data.name }).then(user => {
                 if(user == null) cb(false);
-                User.findByIdAndUpdate(user._id, {$push: {listes: data.list_id}}, {'new':true}, cb);
+                User.findByIdAndUpdate(user._id, {$push: {listes: data.list_id}}, {'new':true})
+                    .then(user => { Liste.findByIdAndUpdate(data.list_id, {$push: {collaboraters: user._id}}, {'new':true}, cb);});
             });
         }
     }
