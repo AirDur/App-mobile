@@ -4,6 +4,9 @@
 <html ng-app="Connexion">
     <body>
         {% raw %}
+        <div id="pop-up">
+
+        </div>
         <h2>Connexion</h2>
         <form class="form-inline">
             <table class="table table-bordered" id="todo-list">
@@ -22,17 +25,14 @@
                         <input type="password" class="form-control" placeholder="Mot de passe" ng-model="coData.password">
                     </th>
                     <th scope="col">
-                        <button type="button" class="btn btn-success mb-2" type="submit" ng-click="connectUser()">Se connecter</button>
+                        <button type="button" class="btn btn-success" type="submit" ng-click="connectUser()">Se connecter</button>
                     </th>
                 </tr>
             </table>
         </form>
         <div class="row">
-            <div class="col-6">
-                <a href="/registration">Pas encore inscrit ? Cliquez-ici</a>
-            </div>
-            <div class="col-6">
-                <p color="{{ response.color }}">{{response.text}}</p>
+            <div class="col">
+                <a class="btn btn-primary" href="/registration">Inscription</a>
             </div>
         </div>
         {% endraw %}
