@@ -2,17 +2,15 @@
 
 {% block content %}
 <html ng-app="ListeGestion">
-
 <body ng-controller="mainController">
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   <script src="/public/users/perso.js"></script>
 
+  <!-- pop-up erreur ou confirmation : -->
   <div id="pop-up">
 
   </div>
+  <!-- Message d'erreur. -->
   <div id="pas_connecte" style="display: none;" >
     <p color='red'>Erreur ! Vous n'êtes pas connecté !</p>
     <button type="button" class="btn btn-danger" type="submit" onclick="window.location.replace('/');">
@@ -44,6 +42,7 @@
           <button type="submit" id="create-list" class="btn btn-primary" onclick="window.location.replace('/User/espace/{{id}}');">↻</button>
       </div>
     </div>
+    <!-- Affichage des différentes listes : -->
     <table class="table table-bordered" id="todo-list">
       <thead class="thead-dark">
         <tr>
@@ -52,7 +51,7 @@
         <th scope="col">Actions</th>
         </tr>
       </thead>
-      {% for l in liste_de_truc %}
+      {% for l in liste_de_liste %}
       <tr>
         <th scope="col">
           {{l.name}}
@@ -168,31 +167,32 @@
         </tr>
       </thead>
       <tr class='bg-light' div ng-repeat="task in listData.tasks">
-      <th scope="col">
-        <input type="checkbox" id="done-{{$index}}" ng-checked="task.done" ng-click="isChecked($index, task)">
-      </th>
-      <th scope="col">
-        <div id="tasktext-{{$index}}">
-          {{ task.text }}
-        </div>
-        <div id="edittasktext-{{$index}}" style="display: none;" class="form-group mx-sm-3">
-          <input type="text" class="form-control" name="text" ng-model="editData.text">
-        </div>
-      </th>
-      <th scope="col">
-        <div>
-          {{ task.date | date:'dd/MM/yyyy à HH:mm' }}
-        </div>
-      </th>
-      <th scope="col">
-        <div>
-          {{ task.creator }}
-        </div>
-      </th>
-      <th scope="col">
-        <button type="submit" ng-show="isCreator(task.creator)" id="modify-{{$index}}" class="btn btn-success" ng-click="editTask($index, task)" ng-disabled="task.done">Modifier</button>
-        <button type="submit" ng-show="isCreator(task.creator)" id="delete-{{$index}}" class="btn btn-danger" ng-click="deleteTask(task._id)"> x </button>
-      </th>
+        <th scope="col">
+          <input type="checkbox" id="done-{{$index}}" ng-checked="task.done" ng-click="checkTask($index, task)">
+        </th>
+        <th scope="col">
+          <div id="tasktext-{{$index}}" ng-style="task.done && { 'text-decoration' : 'line-through' }">
+            {{ task.text }}
+          </div>
+          <div id="edittasktext-{{$index}}" style="display: none;" class="form-group mx-sm-3">
+            <input type="text" class="form-control" name="text" ng-model="editData.text">
+          </div>
+        </th>
+        <th scope="col" ng-style="task.done && { 'text-decoration' : 'line-through' }">
+          <div>
+            {{ task.date | date:'dd/MM/yyyy à HH:mm' }}
+          </div>
+        </th>
+        <th scope="col" ng-style="task.done && { 'text-decoration' : 'line-through' }">
+          <div>
+            {{ task.creator }}
+          </div>
+        </th>
+        <th scope="col">
+          <button type="submit" ng-show="isCreator(task.creator)" id="modify-{{$index}}" class="btn btn-success" ng-click="editTask($index, task)" ng-disabled="task.done">Modifier</button>
+          <button type="submit" ng-show="isCreator(task.creator)" id="delete-{{$index}}" class="btn btn-danger" ng-click="deleteTask(task._id)"> x </button>
+        </th>
+      </tr>
     </table>
     <!-- formulaire d'ajout de liste : -->
     <div class="modal fade" id="formTaskModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">

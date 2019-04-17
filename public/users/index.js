@@ -13,23 +13,25 @@ function mainController($scope, $http) {
                     $scope.coData = {}; // On reset les champs
                     if (data[1] == 0)  {
                         setCookie('username', data[0], 0.01);
-                        $scope.response.color = 'green';
-                        $scope.response.text = "Bienvenue ! Redirection sur votre espace en cours...";
+                        document.getElementById('pop-up').innerHTML =
+                        "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">Bienvenue ! Redirection sur votre espace en cours...</div>";
+                      
                         setTimeout(function(){
                             window.location.replace('/User/espace/'+data[0].replace(/^"(.*)"$/, '$1'));
                         }, 2000);
                     } else {
-                        $scope.response.color = 'red';
-                        $scope.response.text = "erreur : " + data[0];   
+                        document.getElementById('pop-up').innerHTML =
+                            "<div class=\"alert alert-error alert-dismissible fade show\" role=\"alert\">erreur : " + data[0] + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>";  
                     };
-                    
                 })
                 .error(function(data) {
+                    document.getElementById('pop-up').innerHTML =
+                            "<div class=\"alert alert-error alert-dismissible fade show\" role=\"alert\">erreur : Erreur inconnu. <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>";  
                     console.log('Error: ' + data);
                 });
         } else {
-            $scope.response.color = 'red';
-            $scope.response.text = "Erreur : vous n'avez pas renseigné les informations nécessaires";
+            document.getElementById('pop-up').innerHTML =
+                "<div class=\"alert alert-error alert-dismissible fade show\" role=\"alert\">Erreur : vous n'avez pas renseigné les informations nécessaires. <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>";          
         }  
     };
 }

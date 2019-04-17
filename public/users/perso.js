@@ -91,7 +91,7 @@ function mainController($scope, $http, $location) {
         document.getElementById('modify-list').innerHTML='Modifier la liste';
         $http.post('/Liste/api/modify/'+url, $scope.listData)
         .success(function(data) {
-            $scope.listData.tasks = data.tasks;
+            $scope.listData = data;
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -175,9 +175,16 @@ function mainController($scope, $http, $location) {
   }
 
   // fonction pour CSS.
-  $scope.checkTask = function(id, done, index) {
-    if(done)
-      return $scope.styleDone;
+  $scope.checkTask = function(index, task) {
+    $scope.editData.checked = document.getElementById('done-'+index).checked;
+    $http.post('/Tache/api/modify_done/' + url + '/' + task._id, $scope.editData)
+    .success(function(data) {
+        $scope.listData = data;
+        console.log(data);
+    })
+    .error(function(data) {
+        console.log('Error: ' + data);
+    });
   }
 
   //Supprime une tache

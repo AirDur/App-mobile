@@ -17,18 +17,18 @@ router.get('/confirmation', function(req, res) {
 // Affichage d'une liste : 
 router.post('/Liste', function(req, res) {
     param = req.body;
-    dataLayer.getList(param,function(laliste){
-        res.render('Liste/index.html', { liste : laliste });
+    dataLayer.getList(param,function(une_liste){
+        res.render('Liste/index.html', { liste : une_liste });
     });
 });
 
-// Espace personnel : 
+// Espace personnel (avec Nunjucks) : 
 router.get('/User/espace/:id', function(req, res) {
     param = req.params;
     dataLayer.getMySpace(param,function(result){
         res.render('users/perso.html', 
         {
-            liste_de_truc: result.listes,
+            liste_de_liste: result.listes,
             id : param.id
         });
     });
