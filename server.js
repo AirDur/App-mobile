@@ -9,6 +9,7 @@ var nunjucks = require('nunjucks');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+require('dotenv').config()
 
 //Modèles mongoose :
 Liste = require('./models/model.Liste');

@@ -1,6 +1,6 @@
 //var MongoClient = require('mongodb').MongoClient;
 var client = require('mongoose');
-var urlmongo = 'mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.net/ListeaFaire?retryWrites=true';
+var urlmongo = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_COLLECTION_NAME;
 var db;
 //var client = new MongoClient(urlmongo, { useNewUrlParser: true});
 
