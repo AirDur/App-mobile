@@ -4,11 +4,18 @@ Resultat des sites et applications fait en cours d'Application Mobile.
 ## Use :
 
 * Clone this git
-* Use `node /td-agus/server.js` in terminal.
+* Use `node server.js` in terminal.
 * Open the website : http://localhost:8080/
 * Enjoy.
 
-## Environnement variable :
+## Spec :
+
+* Account (sign in, log in)
+* List of TodoList
+* Manage List
+* Manage todo
+
+# Environnement variable :
 
 * DB_HOST : ip of mongo database
 * DB_PORT : port of mongo database
