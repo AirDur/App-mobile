@@ -1,12 +1,6 @@
 var router = require('express').Router();
-var mongoose = require('mongoose');
 
 var dataLayer = require('../dataLayer.js');
-
-//Connexion à la base de donnée : 
-mongoose.connect('mongodb+srv://admin:rvadU17GzOPr5niT@cluster0-dvnm0.mongodb.net/ListeaFaire?retryWrites=true', {
-    useNewUrlParser: true
-});
 
 router.get('/#?id=:id', function(req, res) {
     res.render('Liste/index.html');

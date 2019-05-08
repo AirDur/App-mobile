@@ -14,3 +14,9 @@ Resultat des sites et applications fait en cours d'Application Mobile.
 * List of TodoList
 * Manage List
 * Manage todo
+
+# Environnement variable :
+
+* DB_HOST : ip of mongo database
+* DB_PORT : port of mongo database
+* DB_COLLECTION_NAME : mongo database collection name
