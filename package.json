@@ -17,7 +17,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "jquery": "^3.4.1",
-    "mongoose": "^5.4.17",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "nunjucks": "^3.2.0",
     "popper.js": "^1.14.7",
